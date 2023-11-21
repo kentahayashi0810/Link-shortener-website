@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link shortener website</title>
+</head>
+<body>
+  
+
+  <script type="importmap">
+    {
+      "imports": {
+        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+      }
+    }
+  </script>
+  
+  <div id="app">
+    <span v-show="isActive">{{ message }}</span>
+    <ul>
+      <li v-for="item in array">{{item}}</li>
+    </ul>
+  </div>
+  
+  <script type="module">
+    import { createApp } from 'vue'
+  
+    createApp({
+      data() {
+        return {
+          message: 'Hello Vue!',
+          isActive: true,
+          array: ["a", "b", "c"]
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
