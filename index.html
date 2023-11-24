@@ -26,10 +26,11 @@
       <p>Put any URL link you would like to shorten inside the box below!</p>
       <input type="text" v-model="inputUrl" placeholder="Put in your link here...">
       <button @click="shortenURL">Generate Short Link</button>
+      <button @click="clearInput">Clear the input</button>
       <p v-show="isSuccessful" class="success">Success!</p>
       <p v-show="isFail" class="fail">Oops... Something went wrong...</p>
       <p class="link flex"><span>Input Link: </span>{{inputUrl}}</a></p>
-      <p class="link flex"><span>Shortened Link: </span><a :href="returnedUrl">{{returnedUrl}}</a></p>
+      <p class="link flex"><span>Shortened Link: </span><a target="_blank" :href="returnedUrl">{{returnedUrl}}</a></p>
     </div>
   </div>
 
@@ -72,6 +73,11 @@
             this.isSuccessful = false;
           }
 
+        },
+        clearInput() {
+          this.isFail = null;
+          this.isSuccessful = null;
+          this.inputUrl = "";
         }
       }
     }).mount('#app')

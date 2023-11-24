@@ -40,6 +40,12 @@
 
   & p:is(.link) {
     text-align: left;
+    & span {
+      font-weight: 700;
+    }
+    @media (width <= 768px) {
+      font-size: 14px;
+    }
   }
 
   .success {
