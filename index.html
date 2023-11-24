@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Link shortener website</title>
 </head>
+
+<link rel="stylesheet" href="style.css">
+
 <body>
-  
+
 
   <script type="importmap">
     {
@@ -15,26 +19,63 @@
       }
     }
   </script>
-  
+
   <div id="app">
-    <span v-show="isActive">{{ message }}</span>
-    <ul>
-      <li v-for="item in array">{{item}}</li>
-    </ul>
+    <div class="inner">
+      <h1>Link Shortener</h1>
+      <p>Put any URL link you would like to shorten inside the box below!</p>
+      <input type="text" v-model="inputUrl" placeholder="Put in your link here...">
+      <button @click="shortenURL">Generate Short Link</button>
+      <p v-show="isSuccessful" class="success">Success!</p>
+      <p v-show="isFail" class="fail">Oops... Something went wrong...</p>
+      <p class="link flex"><span>Input Link: </span>{{inputUrl}}</a></p>
+      <p class="link flex"><span>Shortened Link: </span><a :href="returnedUrl">{{returnedUrl}}</a></p>
+    </div>
   </div>
-  
+
   <script type="module">
     import { createApp } from 'vue'
-  
+
     createApp({
       data() {
         return {
           message: 'Hello Vue!',
           isActive: true,
-          array: ["a", "b", "c"]
+          array: ["a", "b", "c"],
+          inputUrl: "",
+          returnedUrl: "",
+          isSuccessful: null,
+          isFail: null
+        }
+      },
+      methods: {
+        async shortenURL() {
+          const requestURL = "https://api-ssl.bitly.com/v4/shorten";
+          const longURL = this.inputUrl;
+          const options = {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer 967cccd98a5d0ea7e9408406aae817ae0582c4de',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "long_url": `${longURL}`, "domain": "bit.ly" })
+          };
+
+          const response = await fetch(requestURL, options);
+          if (response.ok) {
+            const data = await response.json();
+            this.returnedUrl = data.link;
+            this.isSuccessful = true;
+            this.isFail = false;
+          } else {
+            this.isFail = true;
+            this.isSuccessful = false;
+          }
+
         }
       }
     }).mount('#app')
   </script>
 </body>
+
 </html>

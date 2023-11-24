@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+.inner {
+  max-width: calc(600px + 10%);
+  margin: 0 auto;
+  padding: 0 5%;
+
+  & h1 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  & p {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+
+  & input {
+    display: block;
+    margin: 0 auto;
+    max-width: 600px;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  & button {
+    display: block;
+    margin: 0 auto;
+    height: 30px;
+    padding: 5px 16px;
+    margin-bottom: 40px;
+    cursor: pointer;
+  }
+
+  & p:is(.link) {
+    text-align: left;
+  }
+
+  .success {
+    color: green;
+  }
+  .fail {
+    color: red;
+  }
+  .flex {
+    & span {
+      display: block;
+    }
+  }
+}
